@@ -17,6 +17,7 @@ type TaskAction = {
     updateTaskStatus: (state: Task['status']) => void
 }
 
+// type taskList = Task[]
 
 type TaskListAction = {
     addTask: (task: Task) => void
