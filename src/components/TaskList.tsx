@@ -73,51 +73,59 @@ function GenerateTaskList() {
     } = useTaskListStore()
 
     const taskStatus = ['Pending', 'In Progress', 'Completed', 'Archived']
-    const taskTheme = ['background', 'text', 'primary', 'secondary', 'accent']
+    // const taskTheme = ['background', 'text', 'primary', 'secondary', 'accent']
+    console.log(taskList)
 
     return (
-        <div>
-            <label>
-                Task Title:
-                <input
-                    //update the "task title" state 
-                    onChange={(e) => updateTaskTitle(e.target.value)}
-                    value={title}
-                />
-                <p>{title}</p>
-            </label>
-            <label>
-                Task Description:
-                <input
-                    //update the "task title" state 
-                    onChange={(e) => updateTaskDescription(e.target.value)}
-                    value={description}
-                />
-                <p>{description}</p>
-            </label>
-            <label>
-                Task Status:
-                <select
-                    value={status}
-                    onChange={(e) => updateTaskStatus(e.target.value as TaskStatus)}>
-                    {
-                        taskStatus.map((statusOption, index) => (
-                            <option key={index} value={statusOption}>
-                                {statusOption}
-                            </option>
-                        ))
-                    }
-                </select>
-            </label>
-            <button onClick={() => addTask({ title, description, status })} className="border rounded-lg p-2 my-2 shadow-sm">
-                Add Task
-            </button>
+        <div className="flex flex-col justify-center">
+            <div className="border border-gray-300 rounded-lg p-2 my-2 shadow-sm max-w-sm bg-gray-100">
+                <h1 className="text-lg font-bold">Create New Task</h1>
+                <label>
+                    Task Title:
+                    <input
+                        //update the "task title" state 
+                        onChange={(e) => updateTaskTitle(e.target.value)}
+                        value={title}
+                        className="border border-gray-200 rounded-md"
+                    />
+                    <p>{title}</p>
+                </label>
+                <label>
+                    Task Description:
+                    <input
+                        //update the "task title" state 
+                        onChange={(e) => updateTaskDescription(e.target.value)}
+                        value={description}
+                        className="border border-gray-200 rounded-md"
+                    />
+                    <p>{description}</p>
+                </label>
+                <label>
+                    Task Status:
+                    <select
+                        value={status}
+                        onChange={(e) => updateTaskStatus(e.target.value as TaskStatus)}
+                        className="border border-gray-200 rounded-md"
+                    >
+                        {
+                            taskStatus.map((statusOption, index) => (
+                                <option key={index} value={statusOption}>
+                                    {statusOption}
+                                </option>
+                            ))
+                        }
+                    </select>
+                </label>
+                <button onClick={() => addTask({ title, description, status })} className="border rounded-lg p-2 my-2 shadow-sm hover hover:bg-yellow-200">
+                    Add Task
+                </button>
+            </div>
             {
                 taskList.map((task, index) => (
-                    <div key={index} className="border border-gray-300 rounded-lg p-4 my-2 shadow-sm">
-                        <h3 className="mb-2">Title: {task.title}</h3>
-                        <p className="mb-2">Description: {task.description}</p>
-                        <span className="inline-block px-2 py-1 bg-gray-200 rounded">Status: {task.status}</span>
+                    <div key={index} className="border border-gray-300 rounded-lg p-2 my-1 shadow-sm max-w-sm">
+                        <h3 className="mb-1 text-sm">Title: {task.title}</h3>
+                        <p className="mb-1 text-sm">Description: {task.description}</p>
+                        <span className="inline-block px-1 py-0.5 bg-gray-200 rounded text-xs">Status: {task.status}</span>
                     </div>
                 ))
             }
