@@ -11,7 +11,6 @@ type Task = {
     // theme: Theme
 }
 
-
 type TaskAction = {
     updateTaskTitle: (title: Task['title']) => void
     updateTaskDescription: (description: Task['description']) => void
@@ -73,6 +72,9 @@ function GenerateTaskList() {
         taskList, addTask
     } = useTaskListStore()
 
+    const taskStatus = ['Pending', 'In Progress', 'Completed', 'Archived']
+    const taskTheme = ['background', 'text', 'primary', 'secondary', 'accent']
+
     return (
         <div>
             <label>
@@ -93,17 +95,33 @@ function GenerateTaskList() {
                 />
                 <p>{description}</p>
             </label>
-            <button onClick={() => addTask({ title, description, status })}>
+            <label>
+                Task Status:
+                <select
+                    value={status}
+                    onChange={(e) => updateTaskStatus(e.target.value as TaskStatus)}>
+                    {
+                        taskStatus.map((statusOption, index) => (
+                            <option key={index} value={statusOption}>
+                                {statusOption}
+                            </option>
+                        ))
+                    }
+                </select>
+            </label>
+            <button onClick={() => addTask({ title, description, status })} className="border rounded-lg p-2 my-2 shadow-sm">
                 Add Task
             </button>
-            {taskList.map((task, index) =>
-                <div key={index}>
-                    {task.title}
-                    {task.description}
-                    {task.status}
-                </div>
-            )}
-        </div>
+            {
+                taskList.map((task, index) => (
+                    <div key={index} className="border border-gray-300 rounded-lg p-4 my-2 shadow-sm">
+                        <h3 className="mb-2">Title: {task.title}</h3>
+                        <p className="mb-2">Description: {task.description}</p>
+                        <span className="inline-block px-2 py-1 bg-gray-200 rounded">Status: {task.status}</span>
+                    </div>
+                ))
+            }
+        </div >
     )
 }
 
