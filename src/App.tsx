@@ -1,4 +1,5 @@
 import GenerateTaskList from "./components/TaskList"
+import TabbedView from "./components/StatusView"
 //create is a higher order function that returns another function
 //the returned function is the one that takes the state creation logic as its argument
 
@@ -18,6 +19,7 @@ function App() {
 
   return (
     <main>
+      <TabbedView />
       <GenerateTaskList />
     </main>
   )
