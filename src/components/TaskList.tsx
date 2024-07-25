@@ -93,7 +93,7 @@ function GenerateTaskList() {
                 <label>
                     Task Description:
                     <input
-                        //update the "task title" state 
+                        //update the "task description" state 
                         onChange={(e) => updateTaskDescription(e.target.value)}
                         value={description}
                         className="border border-gray-200 rounded-md"
