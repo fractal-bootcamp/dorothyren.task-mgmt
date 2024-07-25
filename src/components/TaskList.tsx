@@ -17,7 +17,6 @@ type TaskAction = {
     updateTaskStatus: (state: Task['status']) => void
 }
 
-type taskList = Task[]
 
 type TaskListAction = {
     addTask: (task: Task) => void
@@ -88,7 +87,7 @@ function GenerateTaskList() {
                         value={title}
                         className="border border-gray-200 rounded-md"
                     />
-                    <p>{title}</p>
+
                 </label>
                 <label>
                     Task Description:
@@ -98,7 +97,6 @@ function GenerateTaskList() {
                         value={description}
                         className="border border-gray-200 rounded-md"
                     />
-                    <p>{description}</p>
                 </label>
                 <label>
                     Task Status:
