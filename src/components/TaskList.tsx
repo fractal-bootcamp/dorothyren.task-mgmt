@@ -1,10 +1,14 @@
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
-type TaskStatus = 'Pending' | 'In Progress' | 'Completed' | 'Archived';
+export type TaskStatus =
+    'Pending' |
+    'In Progress' |
+    'Completed' |
+    'Archived'
 // type Theme = 'background' | 'text' | 'primary' | 'secondary' | 'accent';
 
-type Task = {
+export type Task = {
     title: string,
     description: string,
     status: TaskStatus
@@ -49,7 +53,7 @@ const useTaskStore = create<Task & TaskAction>((set) => ({
 // }))
 
 
-const useTaskListStore = create(
+export const useTaskListStore = create(
     persist<{ taskList: Task[] } & TaskListAction>(
         (set, get) => ({
             taskList: [] as Task[],
