@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react"
-import { Task, TaskStatus } from "./TaskList"
-import { useTaskListStore } from "./TaskList"
+import { useTaskListStore } from "../stores/taskStore"
 
 //add a filter
 //if statement for different statuses
@@ -11,7 +10,7 @@ function TabbedView() {
     const [filteredTasks, setFilteredTasks] = useState(taskList)
 
     useEffect(() => {
-        const _filteredTasks = taskList.filter((task, index, tasks) => task.status === filteredStatus)
+        const _filteredTasks = taskList.filter((task) => task.status === filteredStatus)
         console.log(filteredStatus, filteredTasks)
         setFilteredTasks(_filteredTasks)
     }, [filteredStatus, taskList])

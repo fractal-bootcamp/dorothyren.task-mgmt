@@ -1,19 +1,49 @@
-//create a view of tasks filtered according to their status
+import { useEffect, useState } from "react";
+import { useTaskListStore } from "../stores/taskStore";
 
-//Part I : pull in the tasklist
-//1. create a table component with columns matching the task type elements
-//2. define the tasklist by using the global getTaskListStore hook
-//3. map the tasklist to render in the table
+function TabbedView2() {
+    const { taskList } = useTaskListStore();
+    const [filteredState, setFilteredState] = useState('')
+    const [filteredTaskList, setFilteredTaskList] = useState(taskList)
 
-//Part II : create the status filter
-//4. create 4 buttons inside the table div on top of the table for each of the statuses
-//5. keep track of the state of the button (if it is selected or not) this is done through an onClick that sets the filtered state to 'pending' or other statuses
-//6. change the display of the button that is selected
+    useEffect(() => {
+        const filteredTasks = taskList.filter((task) => task.status === filteredState)
+        console.log(filteredState, filteredTaskList)
+        setFilteredTaskList(filteredTasks)
+    }, [filteredState, taskList])
 
-//Part III : actually filter the task list
-//7. keep track of the filtered state of the task list (filteredTasks)
-//8. change the filteredTasks every time a different status button is clicked, this is useEffect=(()=>{},changes whenever filteredStatus or tasklist changes). This useEffect calls setFilteredStatus
-//9. set setFilteredStatus to equal the list of filtered tasks. this is done through tasklist.filter((task, index, taskList)=>{filteredStatus === task.status})
+    const handleClick = (status: string) => {
+        setFilteredState(status)
+    }
 
-
-
+    return (
+        <div className="flex flex-col justify-center items-center">
+            <h1> Task List Status </h1>
+            <table className="border border-slate-200 bg-white w-96">
+                <tr>
+                    <td colSpan={3} className="p-2 w-full">
+                        <div className="flex flex-row justify-between w-full">
+                            <button className={filteredState === 'Pending' ? "bg-green-500 font-bold" : "bg-green-200"} onClick={() => handleClick('Pending')}>Pending</button>
+                            <button className={filteredState === 'In Progress' ? "bg-blue-500 font-bold" : "bg-blue-200"} onClick={() => handleClick('In Progress')}>In Progress</button>
+                            <button className={filteredState === 'Completed' ? "bg-yellow-500 font-bold" : "bg-yellow-200"} onClick={() => handleClick('Completed')}>Completed</button>
+                            <button className={filteredState === 'Archived' ? "bg-red-500 font-bold" : "bg-red-200"} onClick={() => handleClick('Archived')}>Archived</button>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Status</th>
+                </tr>
+                {filteredTaskList.map((task, index) => (
+                    <tr key={index}>
+                        <td>{task.title}</td>
+                        <td>{task.description}</td>
+                        <td>{task.status}</td>
+                    </tr>
+                ))}
+            </table>
+        </div>
+    )
+}
+export default TabbedView2
